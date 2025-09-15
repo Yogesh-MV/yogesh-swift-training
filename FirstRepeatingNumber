@@ -1,0 +1,35 @@
+//
+//  main.swift
+//  FirstRepeatingNumber
+//
+//  Created by Yogesh Murugesh on 15/09/25.
+//
+
+import Foundation
+
+let numsString = readLine() ?? ""
+let inputArray = numsString.split(separator: ", ").compactMap(String.init).compactMap(Int.init)
+//print(inputArray)
+
+var indexArray: [Int: [Int]] = [:]
+var hasRepitation = false
+for index in 0..<inputArray.count {
+    let input = inputArray[index]
+    indexArray[input, default: []].append(index)
+    if let value = indexArray[input], value.count >= 2 {
+        print("[\(input), \(index)]")
+        hasRepitation = true
+        break
+    }
+}
+
+//print(indexArray)
+
+if !hasRepitation {
+    print("[-1, -1]")
+}
+
+
+
+
+
