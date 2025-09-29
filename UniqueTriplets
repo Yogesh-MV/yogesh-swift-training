@@ -1,0 +1,32 @@
+//
+//  main.swift
+//  UniqueTriplets
+//
+//  Created by Yogesh Murugesh on 29/09/25.
+//
+
+import Foundation
+
+let inputString = readLine() ?? ""
+let inputArray = inputString.split(separator: ", ").compactMap(String.init).compactMap(Int.init).sorted()
+
+var outputArray: [[String]] = []
+for i in 0..<inputArray.count - 2 {
+    let first = inputArray[i]
+    for j in i+1..<inputArray.count - 2 {
+        let second = inputArray[j]
+        for k in j+1..<inputArray.count {
+            let third = inputArray[k]
+            let triple = first + second + third
+            if triple == 0 {
+                let tripleString = ["\(first), \(second), \(third)"]
+                if !outputArray.contains(tripleString) {
+                    outputArray.append(contentsOf: [tripleString])
+                }
+            }
+        }
+        
+    }
+}
+
+print(outputArray)
