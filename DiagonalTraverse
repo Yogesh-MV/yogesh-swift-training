@@ -1,0 +1,54 @@
+//
+//  main.swift
+//  DiagonalTraverse
+//
+//  Created by Yogesh Murugesh on 06/10/25.
+//
+
+import Foundation
+
+print("Enter Row Length")
+let inputR = readLine()
+if let intputRValue = inputR, let rowCount = Int(intputRValue) {
+    print("Enter Column Length")
+    let inputC = readLine()
+    if let inputCValue = inputC, let columnCount = Int(inputCValue) {
+        //Input Logic
+        print("Enter the matrix elements")
+        var inputArray = [[Int]]()
+        for _ in 0..<rowCount {//Column Array
+            var insideArray = [Int]()
+            for _ in 0..<columnCount {//Row Array
+                let input = readLine()
+                if let inputValue = input, let intValue = Int(inputValue) {
+                    insideArray.append(intValue)
+                }
+            }
+            inputArray.append(insideArray)
+        }
+        
+        var result: [Int] = []
+        result.reserveCapacity(rowCount * columnCount)//Allocate space
+        
+        for index in 0..<(rowCount + columnCount - 1) {
+            var temp: [Int] = []
+            
+            let rStart = max(0, index - (columnCount - 1))
+            let rEnd = min(rowCount - 1, index)
+            for r in rStart...rEnd {
+                let c = index - r
+                temp.append(inputArray[r][c])
+            }
+            
+            if index % 2 == 0 {
+                temp.reverse()
+            }
+            result.append(contentsOf: temp)
+        }
+        print(result)
+    } else {
+        print("Provided Input is not a valid integer")
+    }
+} else {
+    print("Provided Input is not a valid integer")
+}
