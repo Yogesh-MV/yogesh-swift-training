@@ -1,0 +1,77 @@
+//
+//  main.swift
+//  SpiralTraversal
+//
+//  Created by Yogesh Murugesh on 15/10/25.
+//
+
+import Foundation
+
+print("Enter Row Length")
+let inputR = readLine()
+if let intputRValue = inputR, let rowCount = Int(intputRValue) {
+    print("Enter Column Length")
+    let inputC = readLine()
+    if let inputCValue = inputC, let columnCount = Int(inputCValue) {
+        if rowCount != columnCount {
+            exit(0)
+        }
+        //Input Logic
+        print("Enter the matrix elements")
+        var inputArray = [[Int]]()
+        for _ in 0..<rowCount {//Column Array
+            var insideArray = [Int]()
+            for _ in 0..<columnCount {//Row Array
+                let input = readLine()
+                if let inputValue = input, let intValue = Int(inputValue) {
+                    insideArray.append(intValue)
+                }
+            }
+            inputArray.append(insideArray)
+        }
+        
+        var result: [Int] = []
+        var top = 0
+        var bottom = rowCount - 1
+        var left = 0
+        var right = columnCount - 1
+        
+        
+        while top <= bottom && left <= right {
+            // Left to Right
+            for col in left...right {
+                result.append(inputArray[top][col])
+            }
+            top += 1
+            
+            //Top to Bottom
+            if top <= bottom {
+                for row in top...bottom {
+                    result.append(inputArray[row][right])
+                }
+                right -= 1
+            }
+            
+            // Right to Left
+            if top <= bottom {
+                for col in stride(from: right, through: left, by: -1) {
+                    result.append(inputArray[bottom][col])
+                }
+                bottom -= 1
+            }
+            
+            // Bottom to Top
+            if left <= right {
+                for row in stride(from: bottom, through: top, by: -1) {
+                    result.append(inputArray[row][left])
+                }
+                left += 1
+            }
+        }
+        print(result)
+    } else {
+        print("Provided Input is not a valid integer")
+    }
+} else {
+    print("Provided Input is not a valid integer")
+}
