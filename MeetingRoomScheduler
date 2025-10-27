@@ -1,0 +1,41 @@
+//
+//  main.swift
+//  MeetingRoomScheduler
+//
+//  Created by Yogesh Murugesh on 27/10/25.
+//
+
+import Foundation
+
+let numberOfMeetings = readLine()
+if let meetings = numberOfMeetings, let meetingCount = Int(meetings), meetingCount > 0 {
+    var meetingArray = [[Int]]()
+    for _ in 0..<meetingCount {
+        let startTime = readLine()
+        let endTime = readLine()
+        if let start = startTime, let end = endTime, let startInt = Int(start), let endInt = Int(end), endInt > startInt {
+            var timingArray = [Int]()
+            timingArray.append(startInt)
+            timingArray.append(endInt)
+            meetingArray.append(timingArray)
+        }
+    }
+    
+    let starts = meetingArray.map { $0[0] }.sorted()
+    let ends = meetingArray.map { $0[1] }.sorted()
+    
+    var rooms = 0
+    var nextRoom = 0
+//    print(starts)
+//    print(ends)
+    for start in starts {
+//        print("\(start): \(ends[nextRoom])")
+        if start < ends[nextRoom] {
+            rooms += 1
+        } else {
+            nextRoom += 1
+        }
+    }
+    
+    print(rooms)
+}
