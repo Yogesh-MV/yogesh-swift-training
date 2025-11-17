@@ -1,0 +1,103 @@
+//
+//  main.swift
+//  SimpleBankSystem
+//
+//  Created by Yogesh Murugesh on 17/11/25.
+//
+
+import Foundation
+
+struct Bank {
+    var bankName: String
+    var amount: Double
+}
+
+struct Transfer {
+    var frombank: String
+    var toBank: String
+    var amount: Double
+}
+
+print("Enter number of banks:")
+if let numberofBankInput = readLine(), let bankInput = Int(numberofBankInput) {
+    print("Enter initial amount for each bank:")
+    var bankArray = [Bank]()
+    for index in 0..<bankInput {
+        let amount = readLine()!
+        let bank = Bank(bankName: "\(index+1)", amount: Double(amount)!)
+        bankArray.append(bank)
+    }
+    
+    print("Enter Number of bank operations:")
+    if let bankOperationInput = readLine(), let bankOperation = Int(bankOperationInput) {
+        
+        var outputArray = [String]()
+        for _ in 0..<bankOperation {
+            print("Withdraw/Transfer/Deposit")
+            let operation = readLine()!.lowercased()
+            switch operation {
+            case "withdraw":
+                print("Enter bank name:")
+
+                let bankName = readLine()!
+                print("Enter withdraw amount")
+                if let amountInput = readLine(), let amount = Double(amountInput) {
+                    if let index = bankArray.firstIndex(where: { $0.bankName == bankName }) {
+                        let existingAmount = bankArray[index].amount
+                        if existingAmount >= amount {
+                            bankArray[index].amount -= amount
+                            outputArray.append("True")
+                        } else {
+                            outputArray.append("False")
+                        }
+                    } else {
+                        outputArray.append("False")
+                    }
+                }
+                
+            case "transfer":
+                print("Enter from bank:")
+                let fromBank = readLine()!
+                print("Enter to bank:")
+                let toBank = readLine()!
+                print("Enter transfer amount:")
+                if let amountInput = readLine(), let amount = Double(amountInput) {
+                    if let fromIndex = bankArray.firstIndex(where: { $0.bankName == fromBank }) {
+                        let existingAmount = bankArray[fromIndex].amount
+                        if existingAmount >= amount {
+                            if let toIndex = bankArray.firstIndex(where: { $0.bankName == toBank }) {
+                                bankArray[fromIndex].amount -= amount
+                                bankArray[toIndex].amount += amount
+                                outputArray.append("True")
+                            } else {
+                                outputArray.append("False")
+                            }
+                        } else {
+                            outputArray.append("False")
+                        }
+                    } else {
+                        outputArray.append("False")
+                    }
+                }
+            case "deposit":
+                print("Enter bank name:")
+                let bankName = readLine()!
+                print("Enter deposit amount:")
+                if let amountInput = readLine(), let amount = Double(amountInput) {
+                    if let index = bankArray.firstIndex(where: { $0.bankName == bankName }) {
+                        bankArray[index].amount += amount
+                        outputArray.append("True")
+                    } else {
+                        outputArray.append("False")
+                    }
+                }
+            default:
+                print("No Match Found")
+            }
+        }
+        
+        print(outputArray)
+    }
+    
+}
+
