@@ -1,0 +1,40 @@
+
+//
+//  main.swift
+//  ContainerWithMostWater 
+//
+//  Created by Yogesh Murugesh on 24/11/25.
+//
+
+import Foundation
+let numberOfInputs = readLine() ?? ""
+if let inputValue = Int(numberOfInputs), inputValue > 1 {
+  var input = [Int]()
+  for _ in 0..<inputValue {
+    let inputString = readLine() ?? ""
+    if let inputValue = Int(inputString), inputValue > 1 {
+      input.append(inputValue)
+    }
+  }
+let totalIndex = input.count
+var output = 0
+if totalIndex > 2 {
+  for index in 0..<totalIndex {
+      let width = (totalIndex-1) - index
+      let maxValue = input[totalIndex - 1]
+      let height = min(input[index], maxValue)
+      let temp = width * height
+      if temp > output {
+        output = temp
+      }
+  }
+  
+} else {
+  let width = totalIndex - 1
+  let height = min(input[0], input[1])
+  output = width * height
+}
+print(output)
+} else {
+  print("Required 2 or more inputs")
+}
