@@ -1,0 +1,30 @@
+//
+//  main.swift
+//  BuyAndSellStock
+//
+//  Created by Yogesh Murugesh on 08/12/25.
+//
+
+import Foundation
+
+print("Enter Number of Stocks")
+let input = readLine()
+if let inputString = input, let inputCount = Int(inputString) {
+    var inputArray:[Int] = []
+    for _ in 0..<inputCount {
+        let stock = readLine()
+        if let stockString = stock, let stockValue = Int(stockString) {
+            inputArray.append(stockValue)
+        }
+    }
+    var output = 0
+    var minValue = Int.max
+    for value in inputArray {
+        minValue = min(minValue, value)
+        output = max(output, value-minValue)
+    }
+    print(output)
+} else {
+    print("Enter valid Count")
+}
+
