@@ -1,0 +1,32 @@
+//
+//  main.swift
+//  ParenthesisValidation
+//
+//  Created by Yogesh Murugesh on 05/01/26.
+//
+
+import Foundation
+
+print("Hello, World!")
+let inputString = readLine()
+if let input = inputString {
+    var openLoopCount = 0
+    for char in input {
+        if char == "(" {
+            openLoopCount += 1
+        } else if char == ")" {
+            if openLoopCount > 0 {
+                openLoopCount -= 1
+            } else {
+                openLoopCount += 1
+            }
+        }
+    }
+    if openLoopCount == 0 {
+        print("1")
+    } else {
+        print("0")
+    }
+} else {
+    print("Enter Valid String")
+}
