@@ -1,0 +1,35 @@
+//
+//  main.swift
+//  AdjacentSorting
+//
+//  Created by Yogesh Murugesh on 12/01/26.
+//
+
+import Foundation
+
+let countString = readLine()
+var inputArray: [Int] = []
+if let inputCount = countString, let count = Int(inputCount) {
+    for _ in 0..<count {
+        let inputString = readLine()
+        if let input = inputString, let inputValue = Int(input) {
+            inputArray.append(inputValue)
+        } else {
+            print("Enter Valid Number")
+        }
+    }
+    var sortedInput = inputArray.sorted()
+    for index in stride(from: 0, to: inputArray.count - 1, by: 2) {
+        for innedIndex in index+1..<index+2 {
+            if inputArray[innedIndex] > inputArray[index] {
+                sortedInput.swapAt(index, innedIndex)
+            }
+        }
+    }
+    print(sortedInput)
+} else {
+    print("Enter Valid Count")
+}
+
+
+
